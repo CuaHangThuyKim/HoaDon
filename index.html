@@ -10,6 +10,7 @@
     <title>Thông tin đơn hàng</title>
     <style>
         body {
+           
             font-family: Arial, sans-serif;
             background-color: #f4f4f4;
             margin-left: 20px;
@@ -199,6 +200,7 @@ input:active{
         opacity: 1;
     }
 }
+
     </style>
 </head>
 <body>
@@ -209,7 +211,7 @@ input:active{
         <h2><a href="URL-cua-lien-ket" target="_blank"><i class="fa-solid fa-magnifying-glass fa-xl" style="color: #ffffff;"></i> TRA CỨU MÃ HÀNG </a></h2>        
     </div>
     <div id="divBody">
-    <div id="divNhap">
+    <div class="content" id="divNhap">
     <form>
         <label for="customer">Khách hàng:</label>
         <input list="customer-datalist" id="customer" name="customer" oninput="startSpeechRecognition(this) ">
@@ -261,7 +263,7 @@ input:active{
     </form>
 </div>
     <div id="divBanHangVaTraHang">
-    <div id="divBanHang">
+    <div class="content" id="divBanHang">
     <h1 style="margin-top: -0px;color: #fcfcfc;margin-left: 20px;  ">HOÁ ĐƠN BÁN HÀNG</h1>
     <table id="table1" class="scrollable-tbody  table-resizable"  >
         <thead>
@@ -300,8 +302,9 @@ input:active{
             </tr>
         </tfoot>
     </table>
+    <button  id="nutXuatHoaDon" style="background-color: #45a049; padding: 15px;font-size: 20px;width: fit-content; height: fit-content;white-space: nowrap;margin-left:20px;margin-top:5px" onclick="exportInvoice()">Xuất hóa đơn <i class="fa-solid fa-file-invoice-dollar fa-2xl" style="color: #f8f8f8;"></i> </button><br>
 </div>
-    <div id="divTraHang">
+    <div class="content" id="divTraHang">
     <h1 style="color: #fcfcfc; margin-left: 20px;">HOÁ ĐƠN TRẢ HÀNG</h1>
     <table id="table2" class="scrollable-tbody  table-resizable">
         <thead >
@@ -327,9 +330,7 @@ input:active{
     </table>
 </div>
 </div>
-<div id="xuatHoaDon">
-    <button id="nutXuatHoaDon" style="padding: 15px;font-size: 20px;width: fit-content; height: fit-content;white-space: nowrap" onclick="exportInvoice()">Xuất hóa đơn <i class="fa-solid fa-file-invoice-dollar fa-2xl" style="color: #f8f8f8;"></i> </button><br>
-</div>
+
 
 </div>
 <div id="successMessage" class="hidden"></div>
@@ -994,8 +995,12 @@ for (let i = 0; i < rows2.length; i++) {
     </tbody>
             <tfoot style="text-align: center;">
                 <tr style="text-align: center;">
-                    <td style="text-align: center;" colspan="2" class="total-cell"><b>TỔNG CỘNG</b></td>
+                    <td style="text-align: center;" colspan="2" class="total-cell"><b>THÀNH TIỀN</b></td>
                     <td style="text-align: center;" colspan="3"class="total-cell"><b>${totalAmount}</b></td>
+                </tr>
+                <tr style="text-align: center;">
+                    <td style="text-align: center;" colspan="2" class="total-cell"><b>HOÀN TRẢ</b></td>
+                    <td style="text-align: center;" colspan="3"class="total-cell"><b>${totalReturnAmount1}</b></td>
                 </tr>
                 <tr style="text-align: center;">
                     <td style="text-align: center;" colspan="2" class="total-cell"><b>NỢ CŨ</b></td>
@@ -1005,10 +1010,7 @@ for (let i = 0; i < rows2.length; i++) {
                     <td style="text-align: center;" colspan="2" class="total-cell"><b>TRẢ TIỀN</b></td>
                     <td style="text-align: center;" colspan="3"class="total-cell"><b>${debtValue}</b></td>
                 </tr>
-                <tr style="text-align: center;">
-                    <td style="text-align: center;" colspan="2" class="total-cell"><b>TỔNG HOÀN TRẢ</b></td>
-                    <td style="text-align: center;" colspan="3"class="total-cell"><b>${totalReturnAmount1}</b></td>
-                </tr>
+                
                 <tr style="text-align: center;">
                     <td style="text-align: center;" colspan="2" class="total-cell"><b>TỔNG TOA</b></td>
                     <td style="text-align: center;" colspan="3"class="total-cell"><b>${finalTotal1}</b></td>
