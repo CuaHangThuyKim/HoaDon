@@ -13,12 +13,12 @@
             font-family: Arial, sans-serif;
             background-color: #f4f4f4;
             margin-left: 20px;
-            background-color: rgb(85, 97, 136);
+            background-color:rgb(7, 51, 113);
             margin-bottom: 10%;
         }
         
         form {
-            width: 300px;
+            width: fit-content;
             margin: 0 auto;
             background-color: #fff;
             padding: 20px;
@@ -204,7 +204,7 @@ input:active{
 <body>
     <div id="header">
         <h2 style="margin-right: 5%; color: aliceblue;"><a href="https://cuahangthuykim.github.io/TrangChu/" target="_blank"><i class="fa-solid fa-house fa-xl" style="color: #ffffff;"></i> TRANG CHỦ</a></h2>
-        <h2><a href="https://cuahangthuykim.github.io/HoaDonKhachHang/" target="_blank"><i class="fa-solid fa-receipt fa-xl" style="color: #ffffff;"></i> NHẬP HOÁ ĐƠN </a></h2>
+        <h2><a href="https://cuahangthuykim.github.io/HoaDon/" target="_blank"><i class="fa-solid fa-receipt fa-xl" style="color: #ffffff;"></i> NHẬP HOÁ ĐƠN </a></h2>
         <h2 style="margin-left: 5%;"><a href="https://cuahangthuykim.github.io/ToaHang/" target="_blank"><i class="fa-solid fa-layer-group fa-xl" style="color: #fafafa;"></i> NHẬP HÀNG </a></h2>
         <h2><a href="URL-cua-lien-ket" target="_blank"><i class="fa-solid fa-magnifying-glass fa-xl" style="color: #ffffff;"></i> TRA CỨU MÃ HÀNG </a></h2>        
     </div>
@@ -212,45 +212,51 @@ input:active{
     <div id="divNhap">
     <form>
         <label for="customer">Khách hàng:</label>
-        <input list="customer-datalist" id="customer" name="customer" oninput="startSpeechRecognition(this) ">
+        <input list="customer-datalist" id="customer" name="customer">
         <datalist id="customer-datalist"></datalist>
-        <button id="recording" style="background-color: rgb(17, 6, 119) ;" type="button" onclick="startRecording1()"><i class="fa-solid fa-microphone fa-xl" style="color: #ffffff;"></i></button>
-        <button style="background-color: rgb(231, 9, 9);" type= "button" onclick="clearForm1()"><i class="fa-solid fa-trash fa-xl" style="color: #ffffff;"></i></button>
-
+        <button style="background-color: rgb(231, 9, 9);border:solid 3px rgb(46, 45, 10) " type="button" onclick="clearForm1()"><i class="fa-solid fa-trash fa-xl" style="color: #ffffff;"></i></button>
+        <button style="background-color: rgb(0, 32, 128);border:solid 3px rgb(46, 45, 10) " type="button" onclick="startRecording('customer')"><i class="fa-solid fa-microphone fa-xl" style="color: #ffffff;"></i></button>
+        <button style="background-color: rgb(255, 251, 0);border:solid 3px rgb(46, 45, 10) ;" type="button" onclick="stopRecording('customer')"><i class="fa-solid fa-square-check fa-xl"style="color: black;"></i></button>
+        
         <label for="productCode">Mã hàng hóa:</label>
         <input type="text" id="productCode" name="productCode" list="productCode-datalist" required>
-        <button id="recording" style="background-color: rgb(17, 6, 119)" type="button" onclick="startRecording2()"><i class="fa-solid fa-microphone fa-xl" style="color: #ffffff;"></i></button>
-        <button style="background-color: rgb(231, 9, 9);" type="button" onclick="clearForm2()"><i class="fa-solid fa-trash fa-xl" style="color: #ffffff;"></i></button>
-
+        <button style="background-color: rgb(231, 9, 9);border:solid 3px rgb(46, 45, 10)" type="button" onclick="clearForm2()"><i class="fa-solid fa-trash fa-xl" style="color: #ffffff;"></i></button>
+        <button style="background-color: rgb(0, 32, 128);border:solid 3px rgb(46, 45, 10)" type="button" onclick="startRecording('productCode')"><i class="fa-solid fa-microphone fa-xl" style="color: #ffffff;"></i></button>
+        <button style="background-color: rgb(255, 251, 0);border:solid 3px rgb(46, 45, 10)" type="button" onclick="stopRecording('productCode')"><i class="fa-solid fa-square-check fa-xl"style="color: black;"></i></button>
+        
         <label for="productName">Tên hàng hóa:</label>
         <input type="text" id="productName" name="productName" required>
-      <button id="recording" style="background-color: rgb(17, 6, 119)"   type="button" onclick="startRecording3()"><i class="fa-solid fa-microphone fa-xl" style="color: #ffffff;"></i></button>
-      <button style="background-color: rgb(231, 9, 9);" type="button" onclick="clearForm3()"><i class="fa-solid fa-trash fa-xl" style="color: #ffffff;"></i></button>
-
+        <button style="background-color: rgb(231, 9, 9);border:solid 3px rgb(46, 45, 10)" type="button" onclick="clearForm3()"><i class="fa-solid fa-trash fa-xl" style="color: #ffffff;"></i></button>
+        <button style="background-color: rgb(0, 32, 128);border:solid 3px rgb(46, 45, 10)" type="button" onclick="startRecording('productName')"><i class="fa-solid fa-microphone fa-xl" style="color: #ffffff;"></i></button>
+        <button style="background-color: rgb(255, 251, 0);border:solid 3px rgb(46, 45, 10)" type="button" onclick="stopRecording('productName')"><i class="fa-solid fa-square-check fa-xl"style="color: black;"></i></button>
+        
         <label for="quantity">Số lượng:</label>
         <input type="number" id="quantity" name="quantity" required>
-        <button id="recording" style="background-color: rgb(17, 6, 119)"  type="button" onclick="startRecording4()"><i class="fa-solid fa-microphone fa-xl" style="color: #ffffff;"></i></button>
-        <button style="background-color: rgb(231, 9, 9);" type="button" onclick="clearForm4()"><i class="fa-solid fa-trash fa-xl" style="color: #ffffff;"></i></button>
+        <button style="background-color: rgb(231, 9, 9);border:solid 3px rgb(46, 45, 10)" type="button" onclick="clearForm4()"><i class="fa-solid fa-trash fa-xl" style="color: #ffffff;"></i></button>
+        <button style="background-color: rgb(0, 32, 128);border:solid 3px rgb(46, 45, 10)" type="button" onclick="startRecording('quantity')"><i class="fa-solid fa-microphone fa-xl" style="color: #ffffff;"></i></button>
+        <button style="background-color: rgb(255, 251, 0);border:solid 3px rgb(46, 45, 10)" type="button" onclick="stopRecording('quantity')"><i class="fa-solid fa-square-check fa-xl"style="color: black;"></i></button>
 
         <label for="price">Giá bán:</label>
         <input type="number" id="price" name="price" required>
-      <button id="recording" style="background-color: rgb(17, 6, 119)"  type="button" onclick="startRecording5()"><i class="fa-solid fa-microphone fa-xl" style="color: #ffffff;"></i></button>
-      <button style="background-color: rgb(231, 9, 9);" type="button" onclick="clearForm5()"><i class="fa-solid fa-trash fa-xl" style="color: #ffffff;"></i></button>
+      <button style="background-color: rgb(231, 9, 9);border:solid 3px rgb(46, 45, 10)" type="button" onclick="clearForm5()"><i class="fa-solid fa-trash fa-xl" style="color: #ffffff;"></i></button>
+      <button style="background-color: rgb(0, 32, 128);border:solid 3px rgb(46, 45, 10)" type="button" onclick="startRecording('price')"><i class="fa-solid fa-microphone fa-xl" style="color: #ffffff;"></i></button>
+      <button style="background-color: rgb(255, 251, 0);border:solid 3px rgb(46, 45, 10)" type="button" onclick="stopRecording('price')"><i class="fa-solid fa-square-check fa-xl"style="color: black;"></i></button>
 
         <label for="debt">Trả nợ:</label>
         <input type="number" id="debt" name="debt" required>
-        <button id="recording" style="background-color: rgb(17, 6, 119)"  type="button" onclick="startRecording6()"><i class="fa-solid fa-microphone fa-xl" style="color: #ffffff;"></i></button>
-        <button style="background-color: rgb(231, 9, 9);" type="button" onclick="clearForm6()"><i class="fa-solid fa-trash fa-xl" style="color: #ffffff;"></i></button>
+        <button style="background-color: rgb(231, 9, 9);border:solid 3px rgb(46, 45, 10)" type="button" onclick="clearForm6()"><i class="fa-solid fa-trash fa-xl" style="color: #ffffff;"></i></button>
+        <button style="background-color: rgb(0, 32, 128);border:solid 3px rgb(46, 45, 10)" type="button" onclick="startRecording('debt')"><i class="fa-solid fa-microphone fa-xl" style="color: #ffffff;"></i></button>
+      <button style="background-color: rgb(255, 251, 0);border:solid 3px rgb(46, 45, 10)" type="button" onclick="stopRecording('debt')"><i class="fa-solid fa-square-check fa-xl"style="color: black;"></i></button>
 
         <label for="oldDebt">Nợ cũ:</label>
         <input type="number" id="oldDebt" name="oldDebt" required>
-        <button id="recording" style="background-color: rgb(17, 6, 119)"  type="button" onclick="startRecording7()"><i class="fa-solid fa-microphone fa-xl" style="color: #ffffff;"></i></button>
-        <button style="background-color: rgb(231, 9, 9);" type="button" onclick="clearForm7()"><i class="fa-solid fa-trash fa-xl" style="color: #ffffff;"></i></button>
-       
+        <button style="background-color: rgb(231, 9, 9);border:solid 3px rgb(46, 45, 10)" type="button" onclick="clearForm7()"><i class="fa-solid fa-trash fa-xl" style="color: #ffffff;"></i></button>
+        <button style="background-color: rgb(0, 32, 128);border:solid 3px rgb(46, 45, 10)" type="button" onclick="startRecording('oldDebt')"><i class="fa-solid fa-microphone fa-xl" style="color: #ffffff;"></i></button>
+        <button style="background-color: rgb(255, 251, 0);border:solid 3px rgb(46, 45, 10)" type="button" onclick="stopRecording('oldDebt')"><i class="fa-solid fa-square-check fa-xl"style="color: black;"></i></button><br>
 
-        <button id="nutThem" style="background-color: #11a711; padding: 15px;margin-bottom: 10px; border:solid 3px #696969	" type="button" onclick="addProduct()"><i class="fa-sharp fa-solid fa-circle-plus fa-2xl" style="color: #fafafa;"></i> THÊM HÀNG</button><br>
-        <button  id="nutTra" style="background-color:#33CCFF; padding: 15px; margin-bottom: 10px;border:solid 3px #696969"  type="button" onclick="returnProduct()"> <i class="fa-solid fa-rotate-left fa-2xl" style="color: #ebebeb;"></i> TRẢ HÀNG</button><br>
-        <button  id="nutXoa" style="background-color:#990000; padding: 15px;border:solid 3px #696969"  type="button" onclick="clearForm()">XOÁ TẤT CẢ  <i class="fa-solid fa-dumpster fa-2xl" style="color: #ffffff;"></i></button>
+        <button id="nutThem" style="background-color: #11a711; padding: 15px;margin-bottom: 10px; border:solid 3px rgb(46, 45, 10)	" type="button" onclick="addProduct()"><i class="fa-sharp fa-solid fa-circle-plus fa-2xl" style="color: #fafafa;"></i> THÊM HÀNG</button><br>
+        <button  id="nutTra" style="background-color:#33CCFF; padding: 15px; margin-bottom: 10px;border:solid 3px rgb(46, 45, 10)"  type="button" onclick="returnProduct()"> <i class="fa-solid fa-rotate-left fa-2xl" style="color: #ebebeb;"></i> TRẢ HÀNG</button><br>
+        <button  id="nutXoa" style="background-color:#990000; padding: 15px;border:solid 3px rgb(46, 45, 10)"  type="button" onclick="clearForm()">XOÁ TẤT CẢ  <i class="fa-solid fa-dumpster fa-2xl" style="color: #ffffff;"></i></button>
         
     </form>
 </div>
@@ -331,6 +337,35 @@ input:active{
 <audio id="recordingAudio" src="./Recording.mp3"></audio>
 
     <script>
+         let recognition;
+
+function startRecording(inputId) {
+    showSuccessMessage('BẮT ĐẦU');
+  recognition = new webkitSpeechRecognition();
+  recognition.lang = 'vi-VN';
+
+  recognition.onresult = function (event) {
+    const transcript = event.results[0][0].transcript;
+    document.getElementById(inputId).value = removeLastPeriod(transcript);
+  };
+
+  recognition.onend = function () {
+    recognition.stop();
+  };
+
+  recognition.start();
+}
+
+function stopRecording(inputId) {
+  if (recognition) {
+    recognition.stop();
+    
+  }
+  showSuccessMessage('LOADING...');
+}
+function removeLastPeriod(text) {
+    return text.replace(/\.$/, '');
+  }
        var successAudio = document.getElementById('successAudio');
         var recordingAudio=document.getElementById('recordingAudio')
 // Thêm sự kiện cho nút thêm hàng
@@ -389,174 +424,7 @@ var addItemButton = document.getElementById('add-item-button');
 }
 
         // Hàm bắt đầu ghi âm
-        function startRecording1() {
-            clearForm1()
-            if ('webkitSpeechRecognition' in window) {
-                const recognition = new webkitSpeechRecognition();
-                
-                // Thiết lập ngôn ngữ
-                recognition.lang = 'vi-VN';
-
-                recognition.onresult = function(event) {
-                    const transcript = event.results[0][0].transcript;
-                    // Gán giá trị của transcript vào input có id là 'customer'
-                    document.getElementById('customer').value = transcript;
-                };
-
-                recognition.onerror = function(event) {
-                    console.error('Lỗi ghi âm:', event.error);
-                };
-
-                recognition.start();
-            } else {
-                console.error('Trình duyệt không hỗ trợ Web Speech API.');
-            }
-            showSuccessMessage('Bắt đầu');
-        }
-        function startRecording2() {
-            clearForm2()
-            if ('webkitSpeechRecognition' in window) {
-                const recognition = new webkitSpeechRecognition();
-                
-                // Thiết lập ngôn ngữ
-                recognition.lang = 'vi-VN';
-
-                recognition.onresult = function(event) {
-                    const transcript = event.results[0][0].transcript;
-                    // Gán giá trị của transcript vào input có id là 'customer'
-                    document.getElementById('productCode').value = transcript;
-                };
-
-                recognition.onerror = function(event) {
-                    console.error('Lỗi ghi âm:', event.error);
-                };
-
-                recognition.start();
-            } else {
-                console.error('Trình duyệt không hỗ trợ Web Speech API.');
-            }
-            showSuccessMessage('Bắt đầu');
-        }
-        function startRecording3() {
-            clearForm3()
-            if ('webkitSpeechRecognition' in window) {
-                const recognition = new webkitSpeechRecognition();
-                
-                // Thiết lập ngôn ngữ
-                recognition.lang = 'vi-VN';
-
-                recognition.onresult = function(event) {
-                    const transcript = event.results[0][0].transcript;
-                    // Gán giá trị của transcript vào input có id là 'customer'
-                    document.getElementById('productName').value = transcript;
-                };
-
-                recognition.onerror = function(event) {
-                    console.error('Lỗi ghi âm:', event.error);
-                };
-
-                recognition.start();
-            } else {
-                console.error('Trình duyệt không hỗ trợ Web Speech API.');
-            }
-            showSuccessMessage('Bắt đầu');
-        }
-        function startRecording4() {
-            clearForm4()
-            if ('webkitSpeechRecognition' in window) {
-                const recognition = new webkitSpeechRecognition();
-                
-                // Thiết lập ngôn ngữ
-                recognition.lang = 'vi-VN';
-
-                recognition.onresult = function(event) {
-                    const transcript = event.results[0][0].transcript;
-                    // Gán giá trị của transcript vào input có id là 'customer'
-                    document.getElementById('quantity').value = transcript;
-                };
-
-                recognition.onerror = function(event) {
-                    console.error('Lỗi ghi âm:', event.error);
-                };
-
-                recognition.start();
-            } else {
-                console.error('Trình duyệt không hỗ trợ Web Speech API.');
-            }
-            showSuccessMessage('Bắt đầu');
-        }
-        function startRecording5() {
-            clearForm5()
-            if ('webkitSpeechRecognition' in window) {
-                const recognition = new webkitSpeechRecognition();
-                
-                // Thiết lập ngôn ngữ
-                recognition.lang = 'vi-VN';
-
-                recognition.onresult = function(event) {
-                    const transcript = event.results[0][0].transcript;
-                    // Gán giá trị của transcript vào input có id là 'customer'
-                    document.getElementById('price').value = transcript;
-                };
-
-                recognition.onerror = function(event) {
-                    console.error('Lỗi ghi âm:', event.error);
-                };
-
-                recognition.start();
-            } else {
-                console.error('Trình duyệt không hỗ trợ Web Speech API.');
-            }
-            showSuccessMessage('Bắt đầu');
-        }
-        function startRecording6() {
-            clearForm6()
-            if ('webkitSpeechRecognition' in window) {
-                const recognition = new webkitSpeechRecognition();
-                
-                // Thiết lập ngôn ngữ
-                recognition.lang = 'vi-VN';
-
-                recognition.onresult = function(event) {
-                    const transcript = event.results[0][0].transcript;
-                    // Gán giá trị của transcript vào input có id là 'customer'
-                    document.getElementById('debt').value = transcript;
-                };
-
-                recognition.onerror = function(event) {
-                    console.error('Lỗi ghi âm:', event.error);
-                };
-
-                recognition.start();
-            } else {
-                console.error('Trình duyệt không hỗ trợ Web Speech API.');
-            }
-            showSuccessMessage('Bắt đầu');
-        }
-        function startRecording7() {
-            clearForm7()
-            if ('webkitSpeechRecognition' in window) {
-                const recognition = new webkitSpeechRecognition();
-                
-                // Thiết lập ngôn ngữ
-                recognition.lang = 'vi-VN';
-
-                recognition.onresult = function(event) {
-                    const transcript = event.results[0][0].transcript;
-                    // Gán giá trị của transcript vào input có id là 'customer'
-                    document.getElementById('oldDebt').value = transcript;
-                };
-
-                recognition.onerror = function(event) {
-                    console.error('Lỗi ghi âm:', event.error);
-                };
-
-                recognition.start();
-            } else {
-                console.error('Trình duyệt không hỗ trợ Web Speech API.');
-            }
-            showSuccessMessage('Bắt đầu');
-        }
+      
          const sheetID = "1UJRp_ihObuUFtuqB7OYlo82Zywb0KuaTblsXvdzEl9w";
     const apiKey = "AIzaSyB0f859G-U56GjtIYGWRP9BOQIRKrEArR0";
 
@@ -686,7 +554,7 @@ var addItemButton = document.getElementById('add-item-button');
             document.getElementById("productName").value = "";
             document.getElementById("quantity").value = "";
             document.getElementById("price").value = "";
-
+            updateSTT("table1");
             // Cập nhật Tổng cộng
             updateTotal1();
 
@@ -741,7 +609,7 @@ var addItemButton = document.getElementById('add-item-button');
     document.getElementById("productName").value = "";
     document.getElementById("quantity").value = "";
     document.getElementById("price").value = "";
-
+    updateSTT("table2");
     // Cập nhật Tổng cộng
     updateTotal2();
 
@@ -847,6 +715,7 @@ function updateSTT(tableId) {
         rows[i].cells[0].innerText = i + 1;
     }
 }
+
 
 // ... (Các hàm khác ở đây)
 // Thêm chức năng sửa cho sản phẩm trong bảng 1 hoặc bảng 2
