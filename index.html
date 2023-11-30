@@ -4,6 +4,10 @@
     <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Include the qrcode-generator library -->
+    <script src="https://cdn.jsdelivr.net/npm/qrious@4.0.2/dist/qrious.min.js"></script>
+</head>
+
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -654,26 +658,7 @@ function updateTotalReturnAmount1() {
     updateTotal1();
 }
 
-function updateInvoice() {
-    // Cập nhật tổng hoàn trả bảng 1
-    var table1 = document.getElementById("table1").getElementsByTagName('tbody')[0];
-    var rows1 = table1.getElementsByTagName('tr');
-    var totalReturnAmount1 = 0;
-
-    for (var i = 0; i < rows1.length; i++) {
-        totalReturnAmount1 += parseFloat(rows1[i].cells[5].textContent) || 0; // Sử dụng textContent thay vì innerHTML
-    }
-
-    document.getElementById("totalReturnAmount1").innerText = totalReturnAmount1;
-
-    // Cập nhật Tổng cộng bảng 1
-    updateTotal1();
-
-    // Cập nhật Tổng cộng bảng 2
-    updateTotal2();
-}
-
-       function updateTotal1() {
+function updateTotal1() {
     // Lấy giá trị của Trả nợ và Nợ cũ
     var debtValue = parseFloat(document.getElementById("debt").value) || 0;
     var oldDebtValue = parseFloat(document.getElementById("oldDebt").value) || 0;
@@ -688,22 +673,22 @@ function updateInvoice() {
     }
 
     // Hiển thị kết quả
-    document.getElementById("totalAmount").innerText = totalAmount;
+    document.getElementById("totalAmount").innerText = isNaN(totalAmount) ? 0 : totalAmount;
 
     // Tính toán Tổng cộng cuối cùng
     var finalTotal1 = totalAmount + oldDebtValue - debtValue - totalReturnAmount2;
 
     // Hiển thị kết quả
-    document.getElementById("debtValue").innerText = debtValue;
-    document.getElementById("oldDebtValue").innerText = oldDebtValue;
-    document.getElementById("totalReturnAmount1").innerText = totalReturnAmount2;
-    document.getElementById("finalTotal1").innerText = finalTotal1;
+    document.getElementById("debtValue").innerText = isNaN(debtValue) ? 0 : debtValue;
+    document.getElementById("oldDebtValue").innerText = isNaN(oldDebtValue) ? 0 : oldDebtValue;
+    document.getElementById("totalReturnAmount1").innerText = isNaN(totalReturnAmount2) ? 0 : totalReturnAmount2;  // Updated here
+    document.getElementById("finalTotal1").innerText = isNaN(finalTotal1) ? 0 : finalTotal1;
 }
 
 function updateTotal2() {
     var table2 = document.getElementById("table2").getElementsByTagName('tbody')[0];
     var rows2 = table2.getElementsByTagName('tr');
-    var totalReturnAmount2 = 0;
+    totalReturnAmount2 = 0;  // Updated here
 
     for (var i = 0; i < rows2.length; i++) {
         totalReturnAmount2 += parseFloat(rows2[i].cells[5].innerHTML) || 0;
@@ -713,14 +698,9 @@ function updateTotal2() {
     var totalReturnAmount2Element = document.getElementById("totalReturnAmount2");
 
     if (totalReturnAmount2Element !== null) {
-        totalReturnAmount2Element.innerText = totalReturnAmount2;
+        totalReturnAmount2Element.innerText = isNaN(totalReturnAmount2) ? 0 : totalReturnAmount2;
     }
 }
-
-
-
-
-
 function updateSTT(tableId) {
     var table = document.getElementById(tableId);
     var rows = table.getElementsByTagName('tbody')[0].getElementsByTagName('tr');
@@ -926,7 +906,8 @@ function exportInvoice() {
     const oldDebtValue = oldDebtValueElement.textContent;
     const debtValue = debtValueElement.textContent;
     const finalTotal1 = finalTotal1Element.textContent;
-
+    
+    
     // Tạo chuỗi HTML theo mẫu mới
     let invoiceHTML = `
         <!-- Thêm toàn bộ nội dung HTML của bạn vào đây -->
@@ -935,7 +916,7 @@ function exportInvoice() {
     <h3 class="hoadontt"><b>❖Địa chỉ:22B Nguyễn Trãi - Phường 4 - Tp.Tuy Hoà, Phú Yên</b></h3>
     <h3 class="hoadontt" ><b>❖ĐIỆN THOẠI :Nhà 0257.382.3295 - 0942.028.933(Lan) - 082.390.7079(Thuỷ) - 091.8121.427(Kim)</b></h3>
     <h3 class="hoadontt"><b>❖Thông tin chuyển khoản : Lê Thị Phương Thuỷ - <u>MSB : 32001010923656</u> - <u>MB: 8500100044007 </u></b></h3>
-    
+    <div id="qrcode"></div>
         <h2 style="text-align: center;"><b>--------- HOÁ ĐƠN ---------</b></h2>
         <h4 style="text-align: center; margin-left: 15px" ><b>Tuy hoà, ${currentTime}</b></h5>
         <h3 style="text-align: center;" ><b>Khách hàng: ${customer}</b></h3>
@@ -1034,7 +1015,7 @@ for (let i = 0; i < rows2.length; i++) {
         </table>
         <h3 style="text-align: center;"><b>***CẢM ƠN VÀ HẸN GẶP LẠI QUÝ KHÁCH***</b></h3>
     `;
-
+        
     // Tạo cửa sổ mới và hiển thị thông tin hoá đơn
     const newWindow = window.open('', '', 'width=fit-content,height=fit-content');
     newWindow.document.write(invoiceHTML);
@@ -1074,9 +1055,11 @@ for (let i = 0; i < rows2.length; i++) {
         cell.style.padding = '4px'; // Định dạng padding cho tổng cộng
         cell.style.fontWeight = 'bold'; // In đậm tổng cộng
     });
-
+      // Thêm mã QR code vào trang HTML
+    
     newWindow.document.querySelector('table').style.borderCollapse = 'collapse';
     showSuccessMessage('Thành công!');
+    console.log('QR Code:', qrCode);
 }
 const captureButton = newWindow.document.getElementById('captureButton');
 captureButton.addEventListener('click', function () {
