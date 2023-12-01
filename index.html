@@ -951,10 +951,10 @@ function exportInvoice() {
         <table style="margin: 0 auto; text-align: center; width: 700px;">
             <thead style="text-align: center;">
                 <tr style="text-align: center;">
-                    <th style="text-align: center; background-color:grey;color:white;" class="header-cell"><b>TÊN HÀNG MUA</b></th>
-                    <th style="text-align: center; background-color:grey;color:white;" class="header-cell"><b>SỐ LƯỢNG</b></th>
-                    <th style="text-align: center; background-color:grey;color:white;" class="header-cell"><b>ĐƠN GIÁ</b></th>
-                    <th style="text-align: center; background-color:grey;color:white;" class="header-cell"><b>THÀNH TIỀN</b></th>
+                    <th style="text-align: center;font-size:20px; " class="header-cell"><b>TÊN HÀNG MUA</b></th>
+                    <th style="text-align: center;font-size:20px; " class="header-cell"><b>SỐ LƯỢNG</b></th>
+                    <th style="text-align: center;font-size:20px; " class="header-cell"><b>ĐƠN GIÁ</b></th>
+                    <th style="text-align: center; font-size:20px;" class="header-cell"><b>THÀNH TIỀN</b></th>
                 </tr>
             </thead>
             
@@ -989,10 +989,10 @@ for (let i = 0; i < rows1.length; i++) {
 invoiceHTML +=`
 <thead style="text-align: center;">
                 <tr style="text-align: center;">
-                    <th style="text-align: center;background-color:grey; color:white;" class="header-cell"><b>TÊN HÀNG TRẢ</b></th>
-                    <th style="text-align: center;background-color:grey; color:white;" class="header-cell"><b>SỐ LƯỢNG</b></th>
-                    <th style="text-align: center;background-color:grey; color:white;" class="header-cell"><b>ĐƠN GIÁ</b></th>
-                    <th style="text-align: center;background-color:grey; color:white;" class="header-cell"><b>HOÀN TRẢ</b></th>
+                    <th style="text-align: center;font-size:20px" class="header-cell"><b>TÊN HÀNG TRẢ</b></th>
+                    <th style="text-align: center;font-size:20px" class="header-cell"><b>SỐ LƯỢNG</b></th>
+                    <th style="text-align: center;font-size:20px" class="header-cell"><b>ĐƠN GIÁ</b></th>
+                    <th style="text-align: center;font-size:20px" class="header-cell"><b>HOÀN TRẢ</b></th>
                 </tr>
             </thead>
 `
@@ -1028,24 +1028,24 @@ for (let i = 0; i < rows2.length; i++) {
     </tbody>
             <tfoot style="text-align: center;">
                 <tr style="text-align: center;">
-                    <td style="text-align: center; background-color:grey;color:white;" colspan="2" class="total-cell"><b>THÀNH TIỀN</b></td>
+                    <td style="text-align: center;font-size:20px;text-decoration:underline; " colspan="2" class="total-cell"><b>THÀNH TIỀN</b></td>
                     <td style="text-align: center;" colspan="3"class="total-cell"><b>${totalAmount}</b></td>
                 </tr>
                 <tr style="text-align: center;">
-                    <td style="text-align: center; background-color:grey;color:white;" colspan="2" class="total-cell"><b>HOÀN TRẢ</b></td>
+                    <td style="text-align: center;font-size:20px;text-decoration:underline; " colspan="2" class="total-cell"><b>HOÀN TRẢ</b></td>
                     <td style="text-align: center;" colspan="3"class="total-cell"><b>${totalReturnAmount1}</b></td>
                 </tr>
                 <tr style="text-align: center;">
-                    <td style="text-align: center; background-color:grey;color:white;" colspan="2" class="total-cell"><b>NỢ CŨ</b></td>
+                    <td style="text-align: center;font-size:20px;text-decoration:underline; " colspan="2" class="total-cell"><b>NỢ CŨ</b></td>
                     <td style="text-align: center;" colspan="3"class="total-cell"><b>${oldDebtValue}</b></td>
                 </tr>
                 <tr style="text-align: center;">
-                    <td style="text-align: center; background-color:grey;color:white;" colspan="2" class="total-cell"><b>TRẢ TIỀN</b></td>
+                    <td style="text-align: center;font-size:20px;text-decoration:underline; " colspan="2" class="total-cell"><b>TRẢ TIỀN</b></td>
                     <td style="text-align: center;" colspan="3"class="total-cell"><b>${debtValue}</b></td>
                 </tr>
                 
                 <tr style="text-align: center;">
-                    <td style="text-align: center;background-color:grey;color:white;" colspan="2" class="total-cell"><b>TỔNG TOA</b></td>
+                    <td style="text-align: center;font-size:20px;text-decoration:underline;" colspan="2" class="total-cell"><b>TỔNG TOA</b></td>
                     <td style="text-align: center;" colspan="3"class="total-cell"><b>${finalTotal1}</b></td>
                 </tr>
                 <tr style="text-align: center;">
