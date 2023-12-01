@@ -254,7 +254,7 @@ input:active{
         <button style="background-color: rgb(255, 251, 0);border:solid 3px rgb(46, 45, 10)" type="button" onclick="stopRecording('productCode')"><i class="fa-solid fa-square-check fa-xl"style="color: black;"></i></button>
         
         <label for="productName">Tên hàng hóa:</label>
-        <input type="text" id="productName" name="productName" required>
+        <input type="text" id="productName" name="productName" list="productName-datalist" required>
         <button style="background-color: rgb(231, 9, 9);border:solid 3px rgb(46, 45, 10)" type="button" onclick="clearForm3()"><i class="fa-solid fa-trash fa-xl" style="color: #ffffff;"></i></button>
         <button style="background-color: rgb(0, 32, 128);border:solid 3px rgb(46, 45, 10)" type="button" onclick="startRecording('productName')"><i class="fa-solid fa-microphone fa-xl" style="color: #ffffff;"></i></button>
         <button style="background-color: rgb(255, 251, 0);border:solid 3px rgb(46, 45, 10)" type="button" onclick="stopRecording('productName')"><i class="fa-solid fa-square-check fa-xl"style="color: black;"></i></button>
@@ -360,74 +360,102 @@ input:active{
 
     // Function to load data from Google Sheets
     function loadData() {
-      const range = "'Khách hàng'!A2:C1000";
-      const url = `https://sheets.googleapis.com/v4/spreadsheets/1UJRp_ihObuUFtuqB7OYlo82Zywb0KuaTblsXvdzEl9w/values/Khachhang?key=AIzaSyB0f859G-U56GjtIYGWRP9BOQIRKrEArR0`;
+  const range = "'Khách hàng'!A2:C1000";
+  const url = `https://sheets.googleapis.com/v4/spreadsheets/1UJRp_ihObuUFtuqB7OYlo82Zywb0KuaTblsXvdzEl9w/values/Khachhang?key=AIzaSyB0f859G-U56GjtIYGWRP9BOQIRKrEArR0`;
 
-      $.get(url, function(data) {
-        const values = data.values;
+  $.get(url, function (data) {
+    const values = data.values;
 
-        // Update datalist options
-        const customerDatalist = document.getElementById("customer-datalist");
-        const debtInput = document.getElementById("debt");
-        const oldDebtInput = document.getElementById("oldDebt");
+    // Update datalist options for customers
+    const customerDatalist = document.getElementById("customer-datalist");
+    const debtInput = document.getElementById("debt");
+    const oldDebtInput = document.getElementById("oldDebt");
 
-        customerDatalist.innerHTML = "";
-        values.forEach(function(value) {
-          const option = document.createElement("option");
-          option.value = value[0];
-          customerDatalist.appendChild(option);
-        });
+    customerDatalist.innerHTML = "";
+    values.forEach(function (value) {
+      const option = document.createElement("option");
+      option.value = value[0];
+      customerDatalist.appendChild(option);
+    });
 
-        // Attach the updateDebtInfo function to the input event of the customer input
-        $("#customer").on("input", function() {
-          const selectedCustomer = $(this).val();
-          const customerIndex = values.findIndex((row) => row[0] === selectedCustomer);
+    // Update datalist options for products (Mã hàng hóa)
+    const productCodeInput = document.getElementById("productCode");
+    productCodeInput.setAttribute("list", "productCode-datalist");
+    const productCodeDatalist = document.createElement("datalist");
+    productCodeDatalist.id = "productCode-datalist";
+    productCodeInput.parentNode.appendChild(productCodeDatalist);
 
-          if (customerIndex !== -1) {
-            debtInput.value = values[customerIndex][1] || "";
-            oldDebtInput.value = values[customerIndex][2] || "";
-          } else {
-            debtInput.value = "";
-            oldDebtInput.value = "";
-          }
-        });
+    // Create a datalist for productName
+    const productNameInput = document.getElementById("productName");
+    const productNameDatalist = document.createElement("datalist");
+    productNameDatalist.id = "productName-datalist";
+    productNameInput.parentNode.appendChild(productNameDatalist);
 
-        // Update datalist options for products (Mã hàng hóa)
-        const productCodeInput = document.getElementById("productCode");
-        productCodeInput.setAttribute("list", "productCode-datalist");
-        const productCodeDatalist = document.createElement("datalist");
-        productCodeDatalist.id = "productCode-datalist";
-        productCodeInput.parentNode.appendChild(productCodeDatalist);
+    values.forEach(function (value) {
+      const optionProductCode = document.createElement("option");
+      optionProductCode.value = value[3]; // Assuming product code is in column D
+      productCodeDatalist.appendChild(optionProductCode);
 
-        values.forEach(function(value) {
-          const option = document.createElement("option");
-          option.value = value[3]; // Assuming product code is in column D
-          productCodeDatalist.appendChild(option);
-        });
+      const optionProductName = document.createElement("option");
+      optionProductName.value = value[4]; // Assuming product name is in column E
+      productNameDatalist.appendChild(optionProductName);
+    });
 
-        // Update product name and price based on the selected product code
-        $("#productCode").on("input", function() {
-          const selectedProductCode = $(this).val();
-          const productIndex = values.findIndex((row) => row[3] === selectedProductCode);
+    // Attach the updateDebtInfo function to the input event of the customer input
+    $("#customer").on("input", function () {
+      const selectedCustomer = $(this).val();
+      const customerIndex = values.findIndex((row) => row[0] === selectedCustomer);
 
-          const productNameInput = document.getElementById("productName");
-          const priceInput = document.getElementById("price");
+      if (customerIndex !== -1) {
+        debtInput.value = values[customerIndex][1] || "";
+        oldDebtInput.value = values[customerIndex][2] || "";
+      } else {
+        debtInput.value = "";
+        oldDebtInput.value = "";
+      }
+    });
 
-          if (productIndex !== -1) {
-            productNameInput.value = values[productIndex][4] || ""; // Assuming product name is in column E
-            priceInput.value = values[productIndex][5] || ""; // Assuming price is in column F
-          } else {
-            productNameInput.value = "";
-            priceInput.value = "";
-          }
-        });
-      }).fail(function() {
-        console.error("Failed to retrieve data from Google Sheets.");
-      });
-    }
+    // Update product name and price based on the selected product code
+    $("#productCode").on("input", function () {
+      const selectedProductCode = $(this).val();
+      const productIndex = values.findIndex((row) => row[3] === selectedProductCode);
 
-    // Call the function to load data
-    loadData();
+      const productNameInput = document.getElementById("productName");
+      const priceInput = document.getElementById("price");
+
+      if (productIndex !== -1) {
+        productNameInput.value = values[productIndex][4] || ""; // Assuming product name is in column E
+        priceInput.value = values[productIndex][5] || ""; // Assuming price is in column F
+      } else {
+        productNameInput.value = "";
+        priceInput.value = "";
+      }
+    });
+
+    // Update product code and price based on the selected product name
+    $("#productName").on("input", function () {
+      const selectedProductName = $(this).val();
+      const productIndex = values.findIndex((row) => row[4] === selectedProductName);
+
+      const productCodeInput = document.getElementById("productCode");
+      const priceInput = document.getElementById("price");
+
+      if (productIndex !== -1) {
+        productCodeInput.value = values[productIndex][3] || ""; // Assuming product code is in column D
+        priceInput.value = values[productIndex][5] || ""; // Assuming price is in column F
+      } else {
+        productCodeInput.value = "";
+        priceInput.value = "";
+      }
+    });
+  }).fail(function () {
+    console.error("Failed to retrieve data from Google Sheets.");
+  });
+}
+
+// Call the function to load data
+loadData();
+
 
     //
          let recognition;
