@@ -245,7 +245,12 @@ input:active{
         <button style="background-color: rgb(231, 9, 9);border:solid 3px rgb(46, 45, 10)" type="button" onclick="clearForm7()"><i class="fa-solid fa-trash fa-xl" style="color: #ffffff;"></i></button>
         <button style="background-color: rgb(0, 32, 128);border:solid 3px rgb(46, 45, 10)" type="button" onclick="startRecording('oldDebt')"><i class="fa-solid fa-microphone fa-xl" style="color: #ffffff;"></i></button>
         <button style="background-color: rgb(255, 251, 0);border:solid 3px rgb(46, 45, 10)" type="button" onclick="stopRecording('oldDebt')"><i class="fa-solid fa-square-check fa-xl"style="color: black;"></i></button><br>
+        <button style="background-color: rgb(0, 128, 0); border:solid 3px rgb(46, 45, 10);" type="button" onclick="updateDebtValues()">
+            <i class="fa-solid fa-plus fa-xl" style="color: #ffffff;"></i> Thêm thông tin khách
+        </button>
+        
     </div>
+
         <div id="hangHoaInfo">
         <label for="productCode">Mã hàng hóa:</label>
         <input type="text" id="productCode" name="productCode" list="productCode-datalist" required>
@@ -269,12 +274,13 @@ input:active{
         <input type="number" id="price" name="price" required>
       <button style="background-color: rgb(231, 9, 9);border:solid 3px rgb(46, 45, 10)" type="button" onclick="clearForm5()"><i class="fa-solid fa-trash fa-xl" style="color: #ffffff;"></i></button>
       <button style="background-color: rgb(0, 32, 128);border:solid 3px rgb(46, 45, 10)" type="button" onclick="startRecording('price')"><i class="fa-solid fa-microphone fa-xl" style="color: #ffffff;"></i></button>
-      <button style="background-color: rgb(255, 251, 0);border:solid 3px rgb(46, 45, 10)" type="button" onclick="stopRecording('price')"><i class="fa-solid fa-square-check fa-xl"style="color: black;"></i></button>
+      <button style="background-color: rgb(255, 251, 0);border:solid 3px rgb(46, 45, 10)" type="button" onclick="stopRecording('price')"><i class="fa-solid fa-square-check fa-xl"style="color: black;"></i></button><br>
+      <button id="nutThem" style="background-color: #11a711; padding: 15px;margin-bottom: 10px; border:solid 3px rgb(46, 45, 10)	" type="button" onclick="addProduct()"><i class="fa-sharp fa-solid fa-circle-plus fa-2xl" style="color: #fafafa;"></i> THÊM HÀNG</button>
+      <button  id="nutTra" style="background-color:#33CCFF; padding: 15px; margin-bottom: 10px;border:solid 3px rgb(46, 45, 10)"  type="button" onclick="returnProduct()"> <i class="fa-solid fa-rotate-left fa-2xl" style="color: #ebebeb;"></i> TRẢ HÀNG</button><br>
+      <button  id="nutXoa" style="background-color:#990000; padding: 15px;border:solid 3px rgb(46, 45, 10)"  type="button" onclick="clearForm()">XOÁ TẤT CẢ  <i class="fa-solid fa-dumpster fa-2xl" style="color: #ffffff;"></i></button>
+      <button  id="nutXuatHoaDon" style="background-color: #45a049;font-size: 15px;padding: 15px; border:solid 3px rgb(46, 45, 10);" onclick="exportInvoice()">Xuất hóa đơn <i class="fa-solid fa-file-invoice-dollar fa-2xl" style="color: #f8f8f8;"></i> </button><br>
     </div>
-        <br>
-        <button id="nutThem" style="background-color: #11a711; padding: 15px;margin-bottom: 10px; border:solid 3px rgb(46, 45, 10)	" type="button" onclick="addProduct()"><i class="fa-sharp fa-solid fa-circle-plus fa-2xl" style="color: #fafafa;"></i> THÊM HÀNG</button><br>
-        <button  id="nutTra" style="background-color:#33CCFF; padding: 15px; margin-bottom: 10px;border:solid 3px rgb(46, 45, 10)"  type="button" onclick="returnProduct()"> <i class="fa-solid fa-rotate-left fa-2xl" style="color: #ebebeb;"></i> TRẢ HÀNG</button><br>
-        <button  id="nutXoa" style="background-color:#990000; padding: 15px;border:solid 3px rgb(46, 45, 10)"  type="button" onclick="clearForm()">XOÁ TẤT CẢ  <i class="fa-solid fa-dumpster fa-2xl" style="color: #ffffff;"></i></button>
+    
         
     </form>
 </div>
@@ -318,7 +324,7 @@ input:active{
             </tr>
         </tfoot>
     </table>
-    <button  id="nutXuatHoaDon" style="background-color: #45a049; padding: 15px;font-size: 20px;width: fit-content; height: fit-content;white-space: nowrap;margin-left:20px;margin-top:5px" onclick="exportInvoice()">Xuất hóa đơn <i class="fa-solid fa-file-invoice-dollar fa-2xl" style="color: #f8f8f8;"></i> </button><br>
+   
 </div>
     <div class="content" id="divTraHang">
     <h1 style="color: #fcfcfc; margin-left: 20px;">HOÁ ĐƠN TRẢ HÀNG</h1>
@@ -915,6 +921,18 @@ function resetBackgroundColor() {
         //
    // Lấy tham chiếu đến bảng
 // Lấy tham chiếu đến bảng
+function updateDebtValues() {
+    // Get values from input fields
+    var debtValue = parseFloat(document.getElementById("debt").value) || 0;
+    var oldDebtValue = parseFloat(document.getElementById("oldDebt").value) || 0;
+
+    // Update elements with id="debtValue" and id="oldDebtValue"
+    document.getElementById("debtValue").innerText = debtValue;
+    document.getElementById("oldDebtValue").innerText = oldDebtValue;
+
+    // Optionally, clear the input fields after updating
+    showSuccessMessage('Thông tin đã được thêm thành công!');
+}
 
 
 //
